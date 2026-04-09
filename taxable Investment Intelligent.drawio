@@ -10,17 +10,26 @@
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="M1:&amp;nbsp;&lt;b style=&quot;font-size: 13px; text-align: start; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;个人税务画像&lt;/b&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="490" y="70" as="geometry" />
         </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-4" edge="1" parent="1" source="QcJRvRSN_TVFbPCvfWxj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gyJnt7JozSa90PqNUOck-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; text-align: start;&quot;&gt;&lt;span class=&quot;s1&quot; style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;b&gt;M2: &lt;/b&gt;&lt;/span&gt;&lt;b&gt;资产模拟引擎&lt;/b&gt;&lt;span class=&quot;s1&quot; style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;b&gt;&amp;nbsp;&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="490" y="260" as="geometry" />
         </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-9" edge="1" parent="1" source="QcJRvRSN_TVFbPCvfWxj-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gyJnt7JozSa90PqNUOck-8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; text-align: start;&quot;&gt;&lt;span class=&quot;s1&quot; style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;b&gt;M3: &lt;/b&gt;&lt;/span&gt;&lt;b&gt;税务映射逻辑&lt;/b&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="150" y="290" as="geometry" />
+          <mxGeometry height="60" width="120" x="490" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-15" edge="1" parent="1" source="QcJRvRSN_TVFbPCvfWxj-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gyJnt7JozSa90PqNUOck-13" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; text-align: start;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;M4: DL&amp;nbsp;&lt;/b&gt;&lt;span class=&quot;s1&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;决策探索器&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="150" y="410" as="geometry" />
+          <mxGeometry height="60" width="120" x="490" y="640" as="geometry" />
         </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 13px; line-height: normal; text-align: start;&quot;&gt;&lt;span class=&quot;s1&quot; style=&quot;font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;b&gt;M5: &lt;/b&gt;&lt;/span&gt;&lt;b&gt;决策分析报表&lt;/b&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="640" y="540" as="geometry" />
+          <mxGeometry height="140" width="240" x="430" y="890" as="geometry" />
         </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-7" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="" vertex="1">
           <mxGeometry height="80" width="60" x="750" y="30" as="geometry" />
@@ -34,8 +43,47 @@
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-14" edge="1" parent="1" source="QcJRvRSN_TVFbPCvfWxj-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-2" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-6" edge="1" parent="1" source="QcJRvRSN_TVFbPCvfWxj-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="QcJRvRSN_TVFbPCvfWxj-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="QcJRvRSN_TVFbPCvfWxj-11" parent="1" style="text;whiteSpace=wrap;html=1;" value="个人&lt;span style=&quot;font-family: &amp;quot;PingFang SC&amp;quot;; font-size: 13px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;年度应纳税额基准&lt;/span&gt;&lt;span class=&quot;s1&quot; style=&quot;font-size: 13px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;s2&quot; style=&quot;font-size: 13px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal;&quot;&gt;&lt;b&gt;边际税率&lt;/b&gt;&lt;/span&gt;&lt;span class=&quot;s1&quot; style=&quot;font-size: 13px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &amp;quot;Helvetica Neue&amp;quot;;&quot;&gt;&lt;b&gt;&amp;nbsp;&lt;/b&gt;&lt;/span&gt;" vertex="1">
           <mxGeometry height="40" width="200" x="450" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-2" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-7" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="QcJRvRSN_TVFbPCvfWxj-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-1" parent="1" style="text;whiteSpace=wrap;html=1;" value="房价&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;贷款比例&lt;span class=&quot;s1&quot;&gt; (LTV), &lt;/span&gt;利率&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;初始租金&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;租金增长率" vertex="1">
+          <mxGeometry height="40" width="300" x="130" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-5" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-3" parent="1" style="text;whiteSpace=wrap;html=1;" value="每年的利息支出&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;租金收入&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;剩余本金" vertex="1">
+          <mxGeometry height="40" width="230" x="435" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-11" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-8" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;span class=&quot;s1&quot;&gt;&lt;b&gt;年度退税额&lt;/b&gt;&lt;/span&gt;&lt;b&gt; (Tax Refund)&lt;/b&gt;, &lt;span class=&quot;s2&quot;&gt;资本化后的折旧序列&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="280" x="410" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-12" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-10" parent="1" style="text;whiteSpace=wrap;html=1;" value="动作空间&lt;span class=&quot;s1&quot;&gt; (&lt;/span&gt;维修&lt;span class=&quot;s1&quot;&gt;/&lt;/span&gt;还款&lt;span class=&quot;s1&quot;&gt;/&lt;/span&gt;卖出&lt;span class=&quot;s1&quot;&gt;)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="170" x="270" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-17" edge="1" parent="1" source="gyJnt7JozSa90PqNUOck-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="QcJRvRSN_TVFbPCvfWxj-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-13" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;b&gt;最优操作序列&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="110" x="495" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="gyJnt7JozSa90PqNUOck-16" parent="1" style="text;whiteSpace=wrap;html=1;" value="现金流对比图&lt;span class=&quot;s1&quot;&gt;, &lt;/span&gt;风险提示&lt;span class=&quot;s1&quot;&gt;, 10&lt;/span&gt;年后资产增值评估" vertex="1">
+          <mxGeometry height="40" width="200" x="460" y="980" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
