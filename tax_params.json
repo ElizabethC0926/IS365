@@ -1,0 +1,183 @@
+{
+  "_meta": {
+    "description": "German tax parameters by year. Only changed fields need to be specified per year. Missing fields fall back to the most recent available year. All monetary values in EUR, all rates as decimals.",
+    "sources": {
+      "einkommensteuer": "§32a EStG, BMF annual update",
+      "afa": "§7 Abs.4 EStG, §7b EStG (Neubau post-2023)",
+      "thresholds": "§6 Abs.1 Nr.1a EStG (15%), §21 Abs.2 EStG (66%), §23 EStG (10yr)",
+      "grunderwerbsteuer": "Landesrecht, stand 2025",
+      "solidaritaetszuschlag": "SolzG 1995 i.d.F. 2021"
+    },
+    "last_updated": "2025-01"
+  },
+
+  "2025": {
+    "einkommensteuer": {
+      "_comment": "§32a EStG. Zone 1 uses the German progressive formula, not a flat rate. Zones 2-4 are flat marginal rates on the portion within the bracket.",
+      "grundfreibetrag": 12096,
+      "brackets": [
+        {
+          "zone": 0,
+          "from": 0,
+          "to": 12096,
+          "type": "free",
+          "rate": 0.0,
+          "_comment": "Grundfreibetrag, steuerfrei"
+        },
+        {
+          "zone": 1,
+          "from": 12096,
+          "to": 68429,
+          "type": "progressive",
+          "formula": "zone1",
+          "rate_start": 0.14,
+          "rate_end": 0.2397,
+          "_comment": "Erste Progressionszone §32a Abs.1 Nr.2. Formel: (1008.70 * y + 1400) * y wobei y = (zvE - 12096) / 10000"
+        },
+        {
+          "zone": 2,
+          "from": 68429,
+          "to": 277826,
+          "type": "flat",
+          "rate": 0.42,
+          "_comment": "Zweite Progressionszone (Spitzensteuersatz einsetzt)"
+        },
+        {
+          "zone": 3,
+          "from": 277826,
+          "to": null,
+          "type": "flat",
+          "rate": 0.45,
+          "_comment": "Reichensteuer §32a Abs.1 Nr.5"
+        }
+      ],
+      "splitting_divisor": 2,
+      "_comment_splitting": "Ehegattensplitting: zvE / 2 -> Steuer berechnen -> * 2"
+    },
+
+    "solidaritaetszuschlag": {
+      "_comment": "SolzG. Seit 2021 nur noch für Spitzenverdiener. Freigrenze auf die Einkommensteuer (nicht auf zvE).",
+      "rate": 0.055,
+      "freigrenze_single": 18130,
+      "freigrenze_married": 36260,
+      "milderungszone_rate": 0.119,
+      "_comment_milderung": "Milderungszone: Soli = 11.9% des (ESt - Freigrenze), bis regulärer Soli günstiger wäre"
+    },
+
+    "afa": {
+      "_comment": "Absetzung für Abnutzung. Grund und Boden ist nicht abschreibbar.",
+      "gebaeude": {
+        "standard_rate": 0.02,
+        "_comment_standard": "§7 Abs.4 S.1 Nr.2a: Wohngebäude Baujahr vor 2023, lineare AfA über 50 Jahre",
+        "neubau_post_2023_rate": 0.03,
+        "_comment_neubau": "§7 Abs.4 S.1 Nr.2 (neu): Wohngebäude Fertigstellung ab 01.01.2023, lineare AfA über 33 Jahre",
+        "denkmal_years_1_8": 0.09,
+        "denkmal_years_9_12": 0.07,
+        "_comment_denkmal": "§7i EStG: Denkmalgeschützte Gebäude"
+      },
+      "movables": {
+        "kueche_rate": 0.20,
+        "moebel_rate": 0.20,
+        "_comment": "Bewegliche Wirtschaftsgüter (Küche, Möbel): lineare AfA über 5 Jahre (20% p.a.) nach amtlicher AfA-Tabelle. Nur absetzbar wenn separat im Kaufvertrag ausgewiesen."
+      }
+    },
+
+    "thresholds": {
+      "renovation": {
+        "window_years": 3,
+        "limit_rate": 0.15,
+        "_comment": "§6 Abs.1 Nr.1a EStG: Renovierungskosten in den ersten 3 Jahren nach Anschaffung, wenn > 15% des Kaufpreises (netto, ohne USt), werden als anschaffungsnahe Herstellungskosten behandelt und nur über AfA abgesetzt."
+      },
+      "rent": {
+        "full_deduction_threshold": 0.66,
+        "half_deduction_threshold": 0.50,
+        "_comment": "§21 Abs.2 EStG: Miete >= 66% der ortsüblichen Miete -> voller Werbungskostenabzug. Miete 50-66% -> Totalüberschussprognose erforderlich (hier vereinfacht als halber Abzug modelliert). Miete < 50% -> Aufteilung in entgeltlich/unentgeltlich."
+      },
+      "speculation_tax": {
+        "free_after_years": 10,
+        "_comment": "§23 Abs.1 S.1 Nr.1 EStG: Veräußerungsgewinne aus privaten Immobilien sind nach 10 Jahren Haltedauer steuerfrei. Maßgeblich: Datum der Notarverträge (Kauf und Verkauf)."
+      },
+      "verlustausgleich": {
+        "horizontal": true,
+        "vertikal": true,
+        "_comment": "Verluste aus VuV können mit anderen Einkunftsarten verrechnet werden (vertikaler Verlustausgleich). Kein § 15a-Limit für private Vermietung."
+      }
+    },
+
+    "grunderwerbsteuer": {
+      "_comment": "Landesrecht. Einmalig beim Kauf fällig. Gehört zu den Anschaffungsnebenkosten und erhöht die AfA-Bemessungsgrundlage.",
+      "by_state": {
+        "Bayern": 0.035,
+        "Sachsen": 0.035,
+        "Hamburg": 0.045,
+        "Baden-Wuerttemberg": 0.05,
+        "Bremen": 0.05,
+        "Mecklenburg-Vorpommern": 0.05,
+        "Niedersachsen": 0.05,
+        "Rheinland-Pfalz": 0.05,
+        "Sachsen-Anhalt": 0.05,
+        "Berlin": 0.06,
+        "Hessen": 0.06,
+        "Nordrhein-Westfalen": 0.065,
+        "Saarland": 0.065,
+        "Brandenburg": 0.065,
+        "Schleswig-Holstein": 0.065,
+        "Thueringen": 0.065
+      },
+      "default": 0.05
+    },
+
+    "kaufnebenkosten": {
+      "_comment": "Typische Nebenkosten beim Immobilienkauf. Alle erhöhen die AfA-Bemessungsgrundlage (außer Makler je nach Gestaltung).",
+      "notar_grundbuch_rate": 0.015,
+      "_comment_notar": "Ca. 1.5% des Kaufpreises für Notar + Grundbucheintrag. Exakter Wert nach GNotKG.",
+      "makler_rate_typical": 0.0357,
+      "_comment_makler": "Seit 2020: Maklerkosten werden hälftig zwischen Käufer und Verkäufer geteilt. Typisch 3.57% (inkl. USt) pro Seite."
+    }
+  },
+
+  "2026": {
+    "_comment": "Only fields that changed vs 2025 are listed here. All other fields inherit from 2025.",
+    "einkommensteuer": {
+      "grundfreibetrag": 12348,
+      "brackets": [
+        {
+          "zone": 0,
+          "from": 0,
+          "to": 12348,
+          "type": "free",
+          "rate": 0.0
+        },
+        {
+          "zone": 1,
+          "from": 12348,
+          "to": 69798,
+          "type": "progressive",
+          "formula": "zone1",
+          "rate_start": 0.14,
+          "rate_end": 0.2397,
+          "_comment": "Zone 1 Formel 2026: (1007.27 * y + 1400) * y wobei y = (zvE - 12348) / 10000"
+        },
+        {
+          "zone": 2,
+          "from": 69798,
+          "to": 277826,
+          "type": "flat",
+          "rate": 0.42
+        },
+        {
+          "zone": 3,
+          "from": 277826,
+          "to": null,
+          "type": "flat",
+          "rate": 0.45
+        }
+      ]
+    },
+    "solidaritaetszuschlag": {
+      "freigrenze_single": 19950,
+      "freigrenze_married": 39900,
+      "_comment": "Freigrenze angehoben entsprechend Grundfreibetrag-Anpassung. Rate bleibt 5.5%."
+    }
+  }
+}

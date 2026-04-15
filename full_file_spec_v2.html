@@ -1,0 +1,278 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:8px 0 32px;font-size:13px;color:var(--color-text-primary)}
+.layer{margin-bottom:32px}
+.lheader{padding:10px 0 8px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:2px}
+.lbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px}
+.ltitle{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.lsub{font-size:12px;color:var(--color-text-tertiary);margin-left:auto}
+table{width:100%;border-collapse:collapse;margin-bottom:4px}
+th{font-size:11px;font-weight:500;color:var(--color-text-tertiary);padding:7px 12px;text-align:left;background:var(--color-background-secondary);border-top:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);letter-spacing:0.02em;white-space:nowrap}
+td{padding:9px 12px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px;color:var(--color-text-secondary);vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--color-background-secondary)}
+.fname{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--color-text-primary);white-space:nowrap}
+.pri{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.p0{background:#FCEBEB;color:#A32D2D}
+.p1{background:#FAEEDA;color:#633806}
+.p2{background:#E1F5EE;color:#085041}
+
+.l1 .lbadge{background:#E1F5EE;color:#085041}
+.l2 .lbadge{background:#EEEDFE;color:#3C3489}
+.l3 .lbadge{background:#FAEEDA;color:#633806}
+.lx .lbadge{background:#F1EFE8;color:#444441}
+
+.user-sys{font-style:italic;color:var(--color-text-tertiary)}
+</style>
+
+<div class="wrap">
+
+<!-- LAYER 1 -->
+<div class="layer l1">
+<div class="lheader">
+  <span class="lbadge">层一 · 物理模拟器</span>
+  <span class="ltitle">确定性计算，结果可审计</span>
+  <span class="lsub">交付标准：任意参数组合 → 完整15年逐年数字</span>
+</div>
+<table>
+<tr>
+  <th style="width:190px">文件</th>
+  <th style="width:220px">Function（职责）</th>
+  <th style="width:180px">Input</th>
+  <th style="width:160px">Output</th>
+  <th>User</th>
+</tr>
+<tr>
+  <td><span class="fname">tax_params.json</span><span class="pri p0">P0</span></td>
+  <td>按年份存储所有税法数字：Grundfreibetrag、税阶上限、AfA率、15%阈值、66%阈值、各州契税率。税法变化只改此文件，代码零修改</td>
+  <td>人工维护（来源 BMF 年度公告）</td>
+  <td>被 tax_engine.py 加载，提供当年参数</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">config.json</span><span class="pri p0">P0</span></td>
+  <td>存储不随税法变化的业务常量：仿真年限默认值、采样数量N、FLAG定义名称、输出字段列表</td>
+  <td>人工维护</td>
+  <td>被所有 .py 文件读取</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">tax_engine.py</span><span class="pri p0">P0</span></td>
+  <td>德国税法计算函数库：累进税率（含 Splittingtarif）、AfA折旧、15%资本化规则、66%租金规则、§23投机税、Werbungskosten 汇总。从 tax_params.json 读参数，代码零硬编码</td>
+  <td>各函数接收单一数值参数（不依赖整个 PropertyCase），+ year: int</td>
+  <td>各函数返回 dict，含计算结果 + 所用参数 + 法条引用（为 FLAG 和 Decision Log 准备）</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">finance_engine.py</span><span class="pri p0">P0</span></td>
+  <td>融资计算：贷款摊销表（逐年利息/本金/余额）、Sondertilgung 效果、再融资节点建模、年度现金流净值（租金收入 - 贷款支出 - 维修 - 税）</td>
+  <td>principal, rate, years, sondertilgung_pct, refi: bool</td>
+  <td>list[YearlyLoanState]：每年的利息额、本金还款额、剩余贷款余额</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">property_model.py</span><span class="pri p0">P0</span></td>
+  <td>PropertyCase 数据类：持有一套策略组合的全部参数快照。暴露 step_year(year) 方法推进年份状态，暴露 exit(year) 方法计算退出结果</td>
+  <td>验证后的策略参数 dict（来自 sampler 或用户输入）</td>
+  <td>PropertyCase 对象，供 simulator.py 逐年驱动</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">flag_system.py</span><span class="pri p0">P0</span></td>
+  <td>检测4个 FLAG：15%规则触发、租金过低、税务额度浪费、现金流赤字。每个 FLAG 记录是否触发 + 触发年份。这是用户 filter 和风险提示的数据来源</td>
+  <td>list[YearlySnapshot] + PropertyCase</td>
+  <td>FlagResult dataclass：{FLAG_名称: {triggered: bool, year: int | null}}，直接序列化为表格列</td>
+  <td>用户（作为结果表的列，可 filter）</td>
+</tr>
+<tr>
+  <td><span class="fname">simulator.py</span><span class="pri p0">P0</span></td>
+  <td>单策略完整生命周期仿真：驱动 PropertyCase 逐年 step，每年调用 tax_engine + finance_engine，汇总逐年快照，计算退出结果，调用 flag_system 生成 FLAG。这是层一的总装文件</td>
+  <td>PropertyCase 对象</td>
+  <td>SimulationResult：{yearly_snapshots, exit_result, flags, cashflow_series}。纯函数，无全局状态，支持并行</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">validators.py</span><span class="pri p1">P1</span></td>
+  <td>参数入口约束校验：LTV范围、rental_ratio与usage一致性、land_ratio合法区间、holding_years上下限。返回全部错误列表（非 fail-fast），在参数进入仿真前拦截</td>
+  <td>用户输入的参数 dict</td>
+  <td>ValidationResult：{valid: bool, errors: list[str]}</td>
+  <td><span class="user-sys">系统内部</span>（错误信息透传给用户）</td>
+</tr>
+<tr>
+  <td><span class="fname">sampler.py</span><span class="pri p1">P1</span></td>
+  <td>策略空间穷举/采样：按 V1.0 四个维度的离散分级生成所有合法参数组合。强制包含碰撞测试组（触发15%规则）和退出时机对比组（第9/11年）。每个组合带 group_tag</td>
+  <td>用户固定参数（房价、收入、地点）+ config.json 中的维度定义</td>
+  <td>list[dict]：每个 dict 是一套完整策略参数，含 group_tag，已通过 validators 验证</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">irr_calculator.py</span><span class="pri p1">P1</span></td>
+  <td>IRR / NPV 数值求解。接收纯现金流序列，与业务逻辑完全解耦。IRR 是结果表的一列，用户可用来 filter（"只看IRR > 4%的方案"）</td>
+  <td>list[float]（现金流时间序列，首项为负的初始投入）</td>
+  <td>{irr: float | nan, npv: float}。无解时返回 nan，不抛异常</td>
+  <td>用户（结果表的一列，可 filter）</td>
+</tr>
+<tr>
+  <td><span class="fname">output_formatter.py</span><span class="pri p1">P1</span></td>
+  <td>把 SimulationResult 扁平化为结果表的一行。每列对应一个用户可见维度：输入参数列、逐年现金流列、FLAG列、IRR列、退出净收益列。这是层一面向用户的唯一出口</td>
+  <td>SimulationResult + 原始参数 dict</td>
+  <td>dict（一行结果表数据），字段与 schema.json 定义严格一致</td>
+  <td><span class="user-sys">系统内部</span>（输出被 main.py 汇总成完整表格）</td>
+</tr>
+<tr>
+  <td><span class="fname">schema.json</span><span class="pri p2">P2</span></td>
+  <td>结果表的字段规范：每列的名称、类型、含义、是否对用户可见、是否可 filter。是 simulator 输出与前端 filter 之间的契约文件</td>
+  <td>人工维护（随功能迭代更新）</td>
+  <td>被 output_formatter.py 验证输出格式，被前端读取生成 filter UI</td>
+  <td>间接（定义用户能看到什么列）</td>
+</tr>
+</table>
+</div>
+
+<!-- LAYER 2 -->
+<div class="layer l2">
+<div class="lheader">
+  <span class="lbadge">层二 · DL 优化模型</span>
+  <span class="ltitle">论文核心贡献，学习策略空间的结构</span>
+  <span class="lsub">交付标准：比随机采样更高效地覆盖有价值的策略组合</span>
+</div>
+<table>
+<tr>
+  <th style="width:190px">文件</th>
+  <th style="width:220px">Function（职责）</th>
+  <th style="width:180px">Input</th>
+  <th style="width:160px">Output</th>
+  <th>User</th>
+</tr>
+<tr>
+  <td><span class="fname">env.py</span><span class="pri p0">P0</span></td>
+  <td>Gym 风格 RL 环境：将 simulator.py 包装为 reset() / step(action) 接口。定义观测空间（当前策略参数状态）和动作空间（调整哪个维度、调整多少）</td>
+  <td>用户固定参数（房价等）</td>
+  <td>observation / reward / done / info（每步交互）</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">reward.py</span><span class="pri p0">P0</span></td>
+  <td>Reward 函数（论文最核心文件）：主奖励来自现金流质量，FLAG 触发作为惩罚项，每个惩罚项对应一条税法条款。Agent 通过最大化 reward 自然学会规避非法结构</td>
+  <td>SimulationResult + FlagResult</td>
+  <td>float（scalar reward）+ 各分项分解 dict（供 Decision Log 记录）</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">policy_net.py</span><span class="pri p1">P1</span></td>
+  <td>Policy Network 架构定义（具体选型是你的论文贡献：MLP / Transformer / 其他）。接收策略参数的向量化表示，输出下一步动作的概率分布</td>
+  <td>observation tensor</td>
+  <td>action distribution + value estimate</td>
+  <td><span class="user-sys">系统内部</span></td>
+</tr>
+<tr>
+  <td><span class="fname">train.py</span><span class="pri p1">P1</span></td>
+  <td>训练循环：Agent 与 env 交互、收集经验、更新 policy_net 权重。记录训练曲线（reward 收敛情况）。产出训练好的模型权重</td>
+  <td>env + policy_net + 超参数配置</td>
+  <td>model.pt（模型权重）+ training_log.json</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+<tr>
+  <td><span class="fname">evaluate.py</span><span class="pri p2">P2</span></td>
+  <td>评估训练后的 Agent：与随机采样 baseline 对比，衡量 Agent 是否能用更少的仿真次数覆盖更多高质量策略。论文实验章节的数据来源</td>
+  <td>model.pt + 测试用固定参数集</td>
+  <td>evaluation_report.json（含对比指标，写入论文）</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+</table>
+</div>
+
+<!-- LAYER 3 -->
+<div class="layer l3">
+<div class="lheader">
+  <span class="lbadge">层三 · 用户交付层</span>
+  <span class="ltitle">用户看到的全部内容</span>
+  <span class="lsub">交付标准：结果表可 filter，方案可保存，FLAG 可见</span>
+</div>
+<table>
+<tr>
+  <th style="width:190px">文件</th>
+  <th style="width:220px">Function（职责）</th>
+  <th style="width:180px">Input</th>
+  <th style="width:160px">Output</th>
+  <th>User</th>
+</tr>
+<tr>
+  <td><span class="fname">main.py</span><span class="pri p0">P0</span></td>
+  <td>系统入口和批量编排：接收用户固定参数，调用 sampler 生成所有策略组合，并行调用 simulator 跑完所有仿真，调用 output_formatter 生成每行，汇总成完整结果表写入输出</td>
+  <td>用户固定参数（CLI 或 API 接口）</td>
+  <td>results_table.csv + results_table.json（完整策略结果表，每行一个策略）</td>
+  <td>用户（最终消费这张表）</td>
+</tr>
+<tr>
+  <td><span class="fname">rule_registry.json</span><span class="pri p1">P1</span></td>
+  <td>税法条款注册表：FLAG 名称 → 法条编号 + 中文/英文解释 + 典型影响金额说明。用户点击某个 FLAG 时展示的解释内容来源于此</td>
+  <td>人工维护</td>
+  <td>被前端和 decision_log.py 查询，提供 FLAG 的可读解释</td>
+  <td>用户（点击 FLAG 时看到解释）</td>
+</tr>
+<tr>
+  <td><span class="fname">decision_log.py</span><span class="pri p1">P1</span></td>
+  <td>为每个策略记录关键决策节点的推理链：哪一年触发了什么规则、对现金流产生了多少影响、对应哪条法条。用户展开某个策略时看到的"为什么"内容</td>
+  <td>SimulationResult + FlagResult + rule_registry.json</td>
+  <td>list[DecisionEntry]：每个关键年份一条记录，含规则触发描述和量化影响</td>
+  <td>用户（展开策略详情时可见）</td>
+</tr>
+<tr>
+  <td><span class="fname">scenarios.json</span><span class="pri p2">P2</span></td>
+  <td>PO 预定义的对比场景模板：如"第9年 vs 第11年退出"、"高LTV vs 低LTV"。用户可一键加载这些场景作为 filter 的起点，无需手动设置参数</td>
+  <td>PO 人工定义</td>
+  <td>被 main.py 读取，注入 sampler 生成对应策略组合</td>
+  <td>用户（预设 filter 场景）</td>
+</tr>
+</table>
+</div>
+
+<!-- INFRA -->
+<div class="layer lx">
+<div class="lheader">
+  <span class="lbadge">基础设施</span>
+  <span class="ltitle">质量保障与环境管理</span>
+  <span class="lsub">不属于任何业务层，但每层都依赖</span>
+</div>
+<table>
+<tr>
+  <th style="width:190px">文件</th>
+  <th style="width:220px">Function（职责）</th>
+  <th style="width:180px">Input</th>
+  <th style="width:160px">Output</th>
+  <th>User</th>
+</tr>
+<tr>
+  <td><span class="fname">tests/test_tax_engine.py</span><span class="pri p0">P0</span></td>
+  <td>税法计算的边界验证：15%规则触发/不触发、66%规则三个区间、§23投机税10年临界点、累进税率各税阶边界。税务数字错误会污染整个训练集</td>
+  <td>—</td>
+  <td>pytest 报告，核心函数覆盖率 &gt; 90%</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+<tr>
+  <td><span class="fname">tests/test_finance_engine.py</span><span class="pri p1">P1</span></td>
+  <td>贷款摊销精度验证：与银行计算器结果误差 &lt; 1€、Sondertilgung 效果、再融资节点现金流连续性</td>
+  <td>—</td>
+  <td>pytest 报告</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+<tr>
+  <td><span class="fname">tests/test_flag_system.py</span><span class="pri p1">P1</span></td>
+  <td>FLAG 触发逻辑验证：每个 FLAG 的触发和不触发场景，触发年份记录正确性</td>
+  <td>—</td>
+  <td>pytest 报告</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+<tr>
+  <td><span class="fname">requirements.txt</span><span class="pri p2">P2</span></td>
+  <td>Python 依赖声明：numpy、pandas、gymnasium、torch、numpy-financial、pytest</td>
+  <td>—</td>
+  <td>pip install -r 可复现环境</td>
+  <td><span class="user-sys">系统内部（研究者）</span></td>
+</tr>
+</table>
+</div>
+
+</div>
